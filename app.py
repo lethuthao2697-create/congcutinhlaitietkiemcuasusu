@@ -221,7 +221,6 @@ with tab_bieu_do:
     df_chart = df_dong_tien[["Tháng", "Tổng số tiền (Lãi đơn)", "Tổng số tiền (Lãi kép)"]].set_index("Tháng")
     df_chart.columns = ["Mô hình Lãi đơn", "Mô hình Lãi kép"]
     
-    # Sử dụng line_chart của Streamlit (Tự động ăn theo theme màu rực rỡ)
     st.line_chart(df_chart, height=380)
     st.info("💡 Mẹo tài chính: Chu kỳ gửi càng dài kết hợp với phương thức Lãi kép sẽ tạo ra hiệu ứng kỳ quan thứ 8 - Tiền đẻ ra tiền với tốc độ vượt trội!")
 
@@ -239,10 +238,14 @@ with tab_lich_trinh:
         
     df_view.columns = ["Kỳ (Tháng)", "Tiền gốc gửi (VNĐ)", "Lãi tích lũy (VNĐ)", "Tổng giá trị tài sản (VNĐ)", "Tiền mặt thực nhận (VNĐ)"]
     
-    # Hiển thị bảng dạng Interative đẹp mắt với các cột được highlight số
     st.dataframe(
         df_view.style.format({
             "Tiền gốc gửi (VNĐ)": "{:,.0f}",
             "Lãi tích lũy (VNĐ)": "{:,.0f}",
             "Tổng giá trị tài sản (VNĐ)": "{:,.0f}",
             "Tiền mặt thực nhận (VNĐ)": "{:,.0f}"
+        }).background_gradient(cmap="Blues", subset=["Tổng giá trị tài sản (VNĐ)"]), 
+        use_container_width=True,
+        hide_index=True
+    )
+
